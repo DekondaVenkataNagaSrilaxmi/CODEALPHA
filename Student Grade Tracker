@@ -1,0 +1,58 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class StudentGrades {
+    public static void main(String[] args) {
+        // Create an ArrayList to store student grades
+        ArrayList<Double> grades = new ArrayList<>();
+        Scanner scanner = new Scanner(System.in);
+        
+        while (true) {
+            System.out.print("Enter student grade (or type 'done' to finish): ");
+            String input = scanner.nextLine();
+            
+            // Check if the user wants to finish entering grades
+            if (input.equalsIgnoreCase("done")) {
+                break;
+            }
+
+            // Try to convert input to double and add to the list
+            try {
+                double grade = Double.parseDouble(input);
+                grades.add(grade);
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter a valid number or 'done' to finish.");
+            }
+        }
+
+        // Check if grades list is not empty
+        if (!grades.isEmpty()) {
+            // Calculate average, highest, and lowest scores
+            double sum = 0;
+            double highest = grades.get(0);
+            double lowest = grades.get(0);
+
+            for (double grade : grades) {
+                sum += grade;
+                if (grade > highest) {
+                    highest = grade;
+                }
+                if (grade < lowest) {
+                    lowest = grade;
+                }
+            }
+
+            double average = sum / grades.size();
+
+            // Print the results
+            System.out.printf("\nTotal Students: %d\n", grades.size());
+            System.out.printf("Average Score: %.2f\n", average);
+            System.out.printf("Highest Score: %.2f\n", highest);
+            System.out.printf("Lowest Score: %.2f\n", lowest);
+        } else {
+            System.out.println("No grades entered.");
+        }
+
+        scanner.close();
+    }
+}
